@@ -215,6 +215,16 @@ searchInput.addEventListener('input', ()=>{
 // MODAL
 
 
+let originalTitle = ''
+let overviewTitle = ''
+let title = ''
+let moviePoster = ''
+let genres = ''
+
+
+
+
+
 const createModal = data =>{
     const modal = document.querySelector('.modal')
 
@@ -225,11 +235,11 @@ const createModal = data =>{
 
 
 
-    const originalTitle = data.original_title
-    const overviewTitle = data.overview
-    const title = data.title
-    const moviePoster = data.poster_path
-    const genres = data.genres
+    let originalTitle = data.original_title
+    let overviewTitle = data.overview
+    let title = data.title
+    let moviePoster = data.poster_path
+    let genres = data.genres
 
 
 
@@ -277,6 +287,11 @@ const showModal = index =>{
 
 
 const closeModal = () =>{
+    let originalTitle = ''
+    let overviewTitle = ''
+    let title = ''
+    let moviePoster = ''
+    let genres = ''
     const modal = document.querySelector('.modal')
     modal.style.display = 'none'
     console.log(43);
