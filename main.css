@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -36,6 +38,33 @@ body{
 }
 
 
+.left{
+    display: flex;
+    gap: 70px;
+    align-items: center;
+}
+
+
+.nav__ul{
+    list-style-type: none;
+    display: flex;
+    gap: 30px;
+    text-transform: uppercase;
+}
+
+.nav__ul a{
+    text-decoration: none;
+    color: #fff;
+    opacity: 0.6;
+    font-family: 'Roboto' 'Sans-Serif';
+    font-weight: 400;
+}
+
+.nav__ul a:hover{
+    opacity: 1;
+    transition: 0.25s;
+}
+
 
 .search-bar{
     display: flex;
@@ -60,6 +89,7 @@ body{
 
 
 .logo{
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;

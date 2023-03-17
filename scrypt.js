@@ -34,13 +34,14 @@ function getPopularMovie(data){
     popularMovies.forEach(element => {
         const moviesTitle = element.title
         const movieRate = element.vote_average
-        const moviePoster = element.poster_path
+        const moviePoster = 'https://image.tmdb.org/t/p/w500' + element.poster_path
         const movieId = element.id
+        console.log(4);
 
         const template = `
             <div class="popular__card movieCard" onclick="showModal(${movieId})">
 
-                <img src="https://image.tmdb.org/t/p/w500${moviePoster}" alt="" class="movieCard__img">
+                <img src="${moviePoster}" alt="" class="movieCard__img">
 
                 <div class="movieCard__info">
 
@@ -101,40 +102,64 @@ async function loadBest () {
     }
 }
 
+
+function checkIfImageExists(url, callback) {
+    const img = new Image();
+    img.src = url;
+        
+    if (img.complete) {
+        callback(true);
+    } else {
+        img.onload = () => {
+        callback(true);
+    };
+              
+    img.onerror = () => {
+        callback(false);
+        };
+    }
+}
+
+
 function getBestMovie(data){
     const bestMovies = data.results
     bestMovies.forEach(element => {
         const moviesTitle = element.title
         const movieRate = element.vote_average
-        const moviePoster = element.poster_path
+        const moviePoster = 'https://image.tmdb.org/t/p/w500' + element.poster_path
         const movieId = element.id
 
-        const template = `
-            <div class="best__card movieCard" onclick="showModal(${movieId})>
 
-                <img src="https://image.tmdb.org/t/p/w500${moviePoster}" alt="" class="movieCard__img">
+        checkIfImageExists(moviePoster, (exists) => {
+        if (exists) {
+            const template = `
+                <div class="best__card movieCard" onclick="showModal(${movieId})>
 
-                <div class="movieCard__info">
+                    <img src="${moviePoster}" alt="" class="movieCard__img">
 
-                    <span class="movieCard__rate movieCard__rate_${getClassByRate(movieRate)}">${movieRate}</span>
+                    <div class="movieCard__info">
 
-                    <div class="movieCard__footer">
+                        <span class="movieCard__rate movieCard__rate_${getClassByRate(movieRate)}">${movieRate}</span>
 
-                        <h3 class="movieCard__title">${moviesTitle}</h3>
+                        <div class="movieCard__footer">
+
+                            <h3 class="movieCard__title">${moviesTitle}</h3>
+
+                        </div>
 
                     </div>
 
                 </div>
+            `
 
-            </div>
-        `
-
-        bestZone.innerHTML += template
-
-    });
+            bestZone.innerHTML += template
+      }
+        });
+});
 }
 
 loadBest()
+
 
 
 
@@ -144,11 +169,13 @@ loadBest()
 
 
 async function loadSearchMovie (searchQuery) {
+    console.log(3);
     const API__BEST__URL = `${API__URL}/search/movie?api_key=${API__KEY}&query=${searchQuery}&page=1`
     const resp = await fetch
     (API__BEST__URL, {
         method: 'GET',
     })
+
 
     const respResults2 = await resp.json()
 
@@ -161,48 +188,51 @@ async function loadSearchMovie (searchQuery) {
 function getSearchMovie(data){
     const search = data.results
     console.log(search);
-
+    console.log(4);
 
     search.forEach(element => {
         const moviesTitle = element.title
         const movieRate = element.vote_average
-        const moviePoster = element.poster_path
+        const moviePoster = 'https://image.tmdb.org/t/p/w500' + element.poster_path
         const movieId = element.id
-        
 
-        const template = `
-            <div class="popular__card movieCard" onclick="showModal(${movieId})">
 
-                <img src="https://image.tmdb.org/t/p/w500${moviePoster}" alt="" class="movieCard__img">
+        checkIfImageExists(moviePoster, (exists) => {
+            if (exists) {
+                    const template = `
+                    <div class="popular__card movieCard" onclick="showModal(${movieId})">
 
-                <div class="movieCard__info">
+                        <img src="${moviePoster}" alt="" class="movieCard__img">
 
-                    <span class="movieCard__rate movieCard__rate_${getClassByRate(movieRate)}">${movieRate}</span>
+                        <div class="movieCard__info">
 
-                    <div class="movieCard__footer">
+                            <span class="movieCard__rate movieCard__rate_${getClassByRate(movieRate)}">${movieRate}</span>
 
-                        <h3 class="movieCard__title">${moviesTitle}</h3>
+                            <div class="movieCard__footer">
+
+                                <h3 class="movieCard__title">${moviesTitle}</h3>
+
+                            </div>
+
+                        </div>
 
                     </div>
+                `
 
-                </div>
-
-            </div>
-        `
-
-        popularZone.innerHTML = ''
-        searchZone.innerHTML += template
-
+                popularZone.innerHTML = ''
+                searchZone.innerHTML += template
+            }
+            });
     });
-
-
 }
 
 
 searchInput.addEventListener('input', ()=>{
+
     searchZone.innerHTML = ''
     
     if(searchInput.value){
+        console.log(searchInput.value);
         loadSearchMovie(searchInput.value)
     }else{
         loadPopular()
