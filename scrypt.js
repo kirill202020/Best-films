@@ -133,7 +133,7 @@ function getBestMovie(data){
         checkIfImageExists(moviePoster, (exists) => {
         if (exists) {
             const template = `
-                <div class="best__card movieCard" onclick="showModal(${movieId})>
+                <div class="best__card movieCard" onclick="showModal(${movieId})">
 
                     <img src="${moviePoster}" alt="" class="movieCard__img">
 
