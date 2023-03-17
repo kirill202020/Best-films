@@ -36,7 +36,6 @@ function getPopularMovie(data){
         const movieRate = element.vote_average
         const moviePoster = 'https://image.tmdb.org/t/p/w500' + element.poster_path
         const movieId = element.id
-        console.log(4);
 
         const template = `
             <div class="popular__card movieCard" onclick="showModal(${movieId})">
@@ -169,7 +168,6 @@ loadBest()
 
 
 async function loadSearchMovie (searchQuery) {
-    console.log(3);
     const API__BEST__URL = `${API__URL}/search/movie?api_key=${API__KEY}&query=${searchQuery}&page=1`
     const resp = await fetch
     (API__BEST__URL, {
@@ -188,7 +186,6 @@ async function loadSearchMovie (searchQuery) {
 function getSearchMovie(data){
     const search = data.results
     console.log(search);
-    console.log(4);
 
     search.forEach(element => {
         const moviesTitle = element.title
@@ -311,7 +308,6 @@ const createModal = data =>{
 const showModal = index =>{
     const modal = document.querySelector('.modal')
     modal.style.display = 'flex'
-    console.log(43);
     loadDetails(index)
 }
 
@@ -324,7 +320,6 @@ const closeModal = () =>{
     let genres = ''
     const modal = document.querySelector('.modal')
     modal.style.display = 'none'
-    console.log(43);
 }
 
 
